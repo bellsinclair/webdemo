@@ -1,8 +1,4 @@
-FROM python:3.9-slim
-LABEL maintainer="example@example.com"
-WORKDIR /app
-COPY . /app
-RUN pip install --no-cache-dir -r requirements.txt
+FROM nginx:latest
+COPY . /usr/share/nginx/html
 EXPOSE 80
-ENV NAME World
-CMD ["python", "app.py"]
+CMD ["nginx", "-g", "daemon off;"]
