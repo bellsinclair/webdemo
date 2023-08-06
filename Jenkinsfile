@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-        stage('Run Shell and Set Env Variable') {
+    stage('Run Shell and Set Env Variable') {
             steps {
                 script {
                     // Run shell command and capture output
@@ -15,12 +15,8 @@ pipeline {
                 sh 'echo $tag'
             }
         }
-    }
-  }
-  stages {
     stage('Docker Build') {
       steps {
-        sh 'echo $tag'
         sh 'docker build -t webdemo:$tag .'
         sh 'docker images'
       }
@@ -43,3 +39,4 @@ pipeline {
     }
     
   }
+}
