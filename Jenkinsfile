@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('Docker Build') {
       steps {
-        sh 'tag = git rev-parse --short=6 HEAD'
+        sh 'tag="git rev-parse --short=6 HEAD"'
+        sh 'pwd'
         sh 'echo $tag'
         sh 'docker build -t webdemo:$tag .'
         sh 'docker images'
