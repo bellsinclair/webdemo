@@ -1,5 +1,7 @@
 pipeline {
   agent any
+  environment {
+      tag = "${git rev-parse --short=6 HEAD}"
   stages {
     stage('Docker Build') {
       steps {
