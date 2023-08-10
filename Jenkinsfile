@@ -12,14 +12,14 @@ pipeline {
         }
     stage('Docker Build') {
       steps {
-        sh 'echo $mytag'
-        sh 'docker build -t webdemo:$mytag .'
+        sh 'echo ${BUILD_NUMBER}'
+        sh 'docker build -t webdemo:${BUILD_NUMBER} .'
         sh 'docker images'
       }
     }
     stage('Docker-Tag') {
       steps {
-        sh 'docker tag webdemo:$tag bellsinclair/webdemo:$mytag'
+        sh 'docker tag webdemo:$tag bellsinclair/webdemo:${BUILD_NUMBER}'
         sh 'docker images'
       }
     }
@@ -30,7 +30,7 @@ pipeline {
     }
     stage('Docker push') {
       steps {
-        sh 'docker push bellsinclair/webdemo:$$mytag'
+        sh 'docker push bellsinclair/webdemo:$${BUILD_NUMBER}'
       }
     }
     
