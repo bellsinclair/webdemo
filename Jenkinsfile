@@ -1,24 +1,30 @@
 pipeline {
   agent any
+
+  environment {
+
+    }
+
   stages {
     stage('Run Shell and Set Env Variable') {
       steps {
         script {
           def myOutput = sh(script: 'git rev-parse --short=6 HEAD')
-          env.tag = myOutput
+          env.tag = mytag
           }
 
             }
         }
     stage('Docker Build') {
       steps {
-        sh 'docker build -t webdemo:$env.tag .'
+        sh 'echo $mytag'
+        sh 'docker build -t webdemo:$mytag .'
         sh 'docker images'
       }
     }
     stage('Docker-Tag') {
       steps {
-        sh 'docker tag webdemo:$tag bellsinclair/webdemo:$env.tag'
+        sh 'docker tag webdemo:$tag bellsinclair/webdemo:$mytag'
         sh 'docker images'
       }
     }
@@ -29,7 +35,7 @@ pipeline {
     }
     stage('Docker push') {
       steps {
-        sh 'docker push bellsinclair/webdemo:$env.tag'
+        sh 'docker push bellsinclair/webdemo:$$mytag'
       }
     }
     
