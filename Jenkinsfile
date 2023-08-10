@@ -12,7 +12,7 @@ pipeline {
         }
     stage('Docker Build') {
       steps {
-        sh 'echo $tag'
+        sh 'echo "${env.tag}"'
         sh 'docker build -t webdemo:$tag .'
         sh 'docker images'
       }
