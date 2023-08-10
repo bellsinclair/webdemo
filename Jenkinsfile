@@ -12,14 +12,13 @@ pipeline {
         }
     stage('Docker Build') {
       steps {
-        sh 'echo "${env.tag}"'
-        sh 'docker build -t webdemo:$tag .'
+        sh 'docker build -t webdemo:$env.tag .'
         sh 'docker images'
       }
     }
     stage('Docker-Tag') {
       steps {
-        sh 'docker tag webdemo:$tag bellsinclair/webdemo:$tag'
+        sh 'docker tag webdemo:$tag bellsinclair/webdemo:$env.tag'
         sh 'docker images'
       }
     }
@@ -30,7 +29,7 @@ pipeline {
     }
     stage('Docker push') {
       steps {
-        sh 'docker push bellsinclair/webdemo:$tag'
+        sh 'docker push bellsinclair/webdemo:$env.tag'
       }
     }
     
