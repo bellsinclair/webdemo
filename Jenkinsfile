@@ -17,7 +17,7 @@ pipeline {
         sh 'docker images'
       }
     }
-    stage('Docker Tag') {
+    stage('Docker-Tag') {
       steps {
         sh 'docker tag webdemo:$tag bellsinclair/webdemo:$tag'
         sh 'docker images'
