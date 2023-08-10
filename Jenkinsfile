@@ -1,10 +1,5 @@
 pipeline {
   agent any
-
-  environment {
-
-    }
-
   stages {
     stage('Run Shell and Set Env Variable') {
       steps {
