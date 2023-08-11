@@ -33,6 +33,7 @@ pipeline {
         sh 'docker push bellsinclair/webdemo:$${BUILD_NUMBER}'
       }
     }
+  }
   post {
         always {
             // This will always send a message to the Slack channel
@@ -46,7 +47,6 @@ pipeline {
             // This will only send a message if the build is successful
             slackSend (color: '#00FF00', message: "Build ${currentBuild.fullDisplayName} succeeded!")
         }
-  }
-    
-  }
+  
+     }
 }
