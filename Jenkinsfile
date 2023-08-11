@@ -23,16 +23,7 @@ pipeline {
         sh 'docker images'
       }
     }
-    stage('Docker login') {
-      steps {
-        sh 'echo $DP |docker login -u $DL --password-stdin'
-      }
-    }
-    stage('Docker push') {
-      steps {
-        sh 'docker push bellsinclair/webdemo:$${BUILD_NUMBER}'
-      }
-    }
+    
   }
   post {
         always {
