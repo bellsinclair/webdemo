@@ -46,6 +46,7 @@ pipeline {
             // This will only send a message if the build is successful
             slackSend (color: '#00FF00', message: "Build ${currentBuild.fullDisplayName} succeeded!")
         }
+    }
     
   }
 }
