@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
         DOCKER_CRED = credentials('dockerhub-credentials')
-            }
+  }
   stages {
     stage('Docker Build') {
       steps {
@@ -20,8 +20,8 @@ pipeline {
     stage('Docker Login') {
       steps {
         sh 'echo "$DOCKER_CRED_PSW" | docker login -u $DOCKER_CRED_USR --password-stdin'
-        }
-        }
+      }
+    }
     stage('Docker push') {
       steps {
         sh 'docker push bellsinclair/webdemo:V${BUILD_ID}'
@@ -43,5 +43,5 @@ pipeline {
             slackSend (color: '#00FF00', message: "Build ${currentBuild.fullDisplayName} succeeded!")
         }
   
-     }
+  }
 }
