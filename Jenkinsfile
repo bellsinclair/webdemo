@@ -12,25 +12,28 @@ pipeline {
         }
     stage('Docker Build') {
       steps {
-        sh 'echo ${BUILD_NUMBER}'
-        sh 'docker build -t webdemo:${BUILD_NUMBER} .'
+        sh 'echo ${BUILD_ID}'
+        sh 'docker build -t webdemo:${BUILD_ID} .'
         sh 'docker images'
       }
     }
     stage('Docker-Tag') {
       steps {
-        sh 'docker tag webdemo:${BUILD_NUMBER} bellsinclair/webdemo:${BUILD_NUMBER}'
+        sh 'docker tag webdemo:${BUILD_ID} bellsinclair/webdemo:${BUILD_ID}'
         sh 'docker images'
       }
     }
-    stage('Docker login') {
+    stage('Docker Login') {
+      environment {
+        DOCKER_CRED = credentials('dockerhub-credentials')
+            }
       steps {
-        sh 'echo $DP |docker login -u $DL --password-stdin'
-      }
-    }
+        sh 'echo "$DOCKER_CRED" | docker login -u $DOCKER_CRED_USR --password-stdin'
+        }
+        }
     stage('Docker push') {
       steps {
-        sh 'docker push bellsinclair/webdemo:$${BUILD_NUMBER}'
+        sh 'docker push bellsinclair/webdemo:${BUILD_ID}'
       }
     }
     
