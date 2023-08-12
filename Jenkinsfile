@@ -1,15 +1,9 @@
 pipeline {
   agent any
-  stages {
-    stage('Run Shell and Set Env Variable') {
-      steps {
-        script {
-          def mytag = sh(script: 'git rev-parse --short=6 HEAD')
-          env.tag = mytag
-          }
-
+  environment {
+        DOCKER_CRED = credentials('dockerhub-credentials')
             }
-        }
+  stages {
     stage('Docker Build') {
       steps {
         sh 'echo ${BUILD_ID}'
@@ -24,9 +18,6 @@ pipeline {
       }
     }
     stage('Docker Login') {
-      environment {
-        DOCKER_CRED = credentials('dockerhub-credentials')
-            }
       steps {
         sh 'echo "$DOCKER_CRED_PSW" | docker login -u $DOCKER_CRED_USR --password-stdin'
         }
