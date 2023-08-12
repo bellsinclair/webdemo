@@ -6,14 +6,14 @@ pipeline {
   stages {
     stage('Docker Build') {
       steps {
-        sh 'echo tag_${BUILD_ID}'
-        sh 'docker build -t webdemo:tag_${BUILD_ID} .'
+        sh 'echo V${BUILD_ID}'
+        sh 'docker build -t webdemo:V${BUILD_ID} .'
         sh 'docker images'
       }
     }
     stage('Docker-Tag') {
       steps {
-        sh 'docker tag webdemo:tag_${BUILD_ID} bellsinclair/webdemo:tag_${BUILD_ID}'
+        sh 'docker tag webdemo:V${BUILD_ID} bellsinclair/webdemo:V${BUILD_ID}'
         sh 'docker images'
       }
     }
@@ -24,7 +24,7 @@ pipeline {
         }
     stage('Docker push') {
       steps {
-        sh 'docker push bellsinclair/webdemo:tag_${BUILD_ID}'
+        sh 'docker push bellsinclair/webdemo:V${BUILD_ID}'
       }
     }
     
