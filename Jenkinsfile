@@ -7,7 +7,7 @@ pipeline {
     stage('Docker Build') {
       steps {
         sh 'echo V${BUILD_ID}'
-        sh 'docker build -t webdemo:V${BUILD_ID} .'
+        sh 'dockerg build -t webdemo:V${BUILD_ID} .'
         sh 'docker images'
       }
     }
