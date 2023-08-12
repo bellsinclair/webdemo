@@ -28,7 +28,7 @@ pipeline {
         DOCKER_CRED = credentials('dockerhub-credentials')
             }
       steps {
-        sh 'echo "$DOCKER_CRED" | docker login -u $DOCKER_CRED_USR --password-stdin'
+        sh 'echo "$DOCKER_CRED_PSW" | docker login -u $DOCKER_CRED_USR --password-stdin'
         }
         }
     stage('Docker push') {
